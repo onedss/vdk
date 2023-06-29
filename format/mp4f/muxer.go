@@ -36,7 +36,7 @@ func (self *Muxer) SetMaxFrames(count int) {
 }
 func (self *Muxer) newStream(codec av.CodecData) (err error) {
 	switch codec.Type() {
-	case av.H264, av.H265, av.AAC:
+	case av.H264, av.H265, av.AAC, av.PCM_ALAW:
 	default:
 		err = fmt.Errorf("fmp4: codec type=%v is not supported", codec.Type())
 		return
@@ -84,6 +84,8 @@ func (self *Muxer) newStream(codec av.CodecData) (err error) {
 		stream.sample.SyncSample = &mp4io.SyncSample{}
 		stream.timeScale = 90000
 	case av.AAC:
+		stream.timeScale = int64(codec.(av.AudioCodecData).SampleRate())
+	case av.PCM_ALAW:
 		stream.timeScale = int64(codec.(av.AudioCodecData).SampleRate())
 	}
 
