@@ -207,7 +207,7 @@ func (self *Stream) fillTrackAtom() (err error) {
 		//self.codecString = fmt.Sprintf("hvc1.%02X%02X%02X", codec.RecordInfo.AVCProfileIndication, codec.RecordInfo.ProfileCompatibility, codec.RecordInfo.AVCLevelIndication)
 		self.codecString = "hev1.1.6.L120.90"
 
-	} else if self.Type() == av.AAC {
+	} else if self.Type() == av.AAC || self.Type() == av.PCM_ALAW {
 		codec := self.CodecData.(aacparser.CodecData)
 		self.sample.SampleDesc.MP4ADesc = &mp4io.MP4ADesc{
 			DataRefIdx:       1,
