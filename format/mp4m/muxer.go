@@ -119,7 +119,7 @@ func (self *Stream) fillTrackAtom() (err error) {
 		self.trackAtom.Header.TrackWidth = float64(width)
 		self.trackAtom.Header.TrackHeight = float64(height)
 
-	} else if self.Type() == av.AAC || self.Type() == av.PCM_ALAW {
+	} else if self.Type() == av.AAC {
 		codec := self.CodecData.(aacparser.CodecData)
 		self.sample.SampleDesc.MP4ADesc = &mp4io.MP4ADesc{
 			DataRefIdx:       1,
